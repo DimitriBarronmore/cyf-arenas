@@ -42,7 +42,7 @@ Multiple arenas which overlap will automatically merge into a single shape. Ther
 Arenas behave mostly like the original, with two notable exceptions:
 
 **1.)** Arena.MoveAndResize and Arena.MoveToAndResize no longer exist. 
-	**Note:** This is because you can simply use Arena.Move/Arena.MoveTo and Arena.Resize one after another, and with the addition of rotation following this convention seems impractical.
+This is because you can simply use Arena.Move/Arena.MoveTo and Arena.Resize one after another, and with the addition of rotation following this convention seems impractical.
 
 **2.)** Arena.ResizeImmediate no longer exists. Instead, Arena.Resize takes an optional third true / false argument which tells it whether to resize immediately.
 
