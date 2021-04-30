@@ -1,3 +1,5 @@
+<img src="https://user-images.githubusercontent.com/34289184/116654748-0cf3ab80-a947-11eb-80ac-0307ff25eaf5.gif" width=400>
+
 # Multiple Arenas
 
 Initially created for CORE but also released here as a standalone resource, this library enables the creation of multiple arenas with rotatable and merged collision.
