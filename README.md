@@ -39,12 +39,14 @@ arena = arenas(x, y, width, height, rotation)
 
 Multiple arenas which overlap will automatically merge into a single shape. There is no option to disable this.
 
-Arenas behave mostly like the original, with two notable exceptions:
+Arenas behave mostly like the original, with a few notable exceptions:
 
 **1.)** Arena.MoveAndResize and Arena.MoveToAndResize no longer exist. 
 This is because you can simply use Arena.Move/Arena.MoveTo and Arena.Resize one after another, and with the addition of rotation following this convention seems impractical.
 
 **2.)** Arena.ResizeImmediate no longer exists. Instead, Arena.Resize takes an optional third true / false argument which tells it whether to resize immediately.
+
+**3.)** Arena.currenty and Arena.y both return a coordinate on the outside of the white portion of the arena. This may cause off-by-five positioning errors in existing code which uses Arena.currenty.
 
 
 -----------------------
@@ -94,7 +96,7 @@ Sticking to the default values is recommended.
 
 ## Advanced Notice: Extending this Library
 
-Because the default player movement can be disabled using `Player.SetControlOverride(false)` as normal, it's very possible to create your own movement code and implement alternate soul modes using this library. In fact, any movement code which doesn't ignore the arena walls will mostly perform without changes. However, any code which references the Arena's x, y, height, or width will behave erratically with multiple arenas.
+Because the default player movement can be disabled using `Player.SetControlOverride(false)` as normal, it's vey possible to create your own movement code and impment alternate soul modes using this library. In fact, movement code which doesn't ignore the arena walls may perform without changes. However, any code which references the Arena's x, y, height, or width will behave erratically with multiple arenas.
 
 The following function can be used to automatically handle collision with multiple arenas:
 
