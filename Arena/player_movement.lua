@@ -38,7 +38,7 @@ rawset(Player, "MoveToAbs", function(x, y, ignorewalls)
 	real_player.MoveToAbs(x,y, true)
 	if ignorewalls == false then
 		res, pos = arenas.collide_all_arenas(Player.absx, Player.absy)
-		if pos then real_player.MoveToAbs(pos.x, pos.y, true) end
+		if res then real_player.MoveToAbs(pos.x, pos.y, true) end
 	end
 end)
 
@@ -60,7 +60,7 @@ rawset(Player, "MoveTo", function(ix, iy, ignorewalls, arena)
 
 	if ignorewalls == false then
 		res, pos = arenas.collide_all_arenas(Player.absx, Player.absy)
-		if pos then real_player.MoveToAbs(pos.x, pos.y, true) end
+		if res then real_player.MoveToAbs(pos.x, pos.y, true) end
 	end
 end
 )
