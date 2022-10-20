@@ -14,6 +14,8 @@ local real_arena = Arena
 arenas.real_arena = Arena
 
 Arena = arenas(real_arena.x, real_arena.y, real_arena.width, real_arena.height)
+Arena.innerColor = real_arena.innerColor
+Arena.outerColor = real_arena.outerColor
 
 local arinn = getmetatable(Arena)
 arinn.currentwidth = real_arena.currentwidth
@@ -42,4 +44,4 @@ end
 
 arenas.bind_arena(Arena)
 
-return function() return arenas, movement end
+return arenas, movement
