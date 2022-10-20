@@ -167,7 +167,13 @@ function library.create_arena(self, x, y, w, h, r)
 	arena_list[shell] = true
 	shell.__whitelist = {}
 	shell.__whitelist["movementspeed"] = true
-	shell.__index = shell
+	shell.__index = function(t, k)
+			if k == "currenty" then
+				return shell.currenty + 5
+			else
+				return shell[k]
+			end
+		end
 	shell.__newindex = function(t, k, v)
 		if shell.__whitelist[k] then
 			shell[k] = v
