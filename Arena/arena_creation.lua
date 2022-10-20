@@ -170,13 +170,38 @@ function library.create_arena(self, x, y, w, h, r)
 	shell.__index = function(t, k)
 			if k == "currenty" then
 				return shell.currenty + 5
+			elseif k == "innerColor" then
+				return shell.center.color
+			elseif k == "innerColor32" then
+				return shell.center.color32
+			elseif k == "outerColor" then
+				return shell.walls.color
+			elseif k == "outerColor32" then
+				return shell.walls.color32
 			else
 				return shell[k]
 			end
 		end
+	local function typecheck(val)
+		if rawtype(val) ~= "table" then
+			error("Arena color must be set to a table.", 3)
+		end
+	end
 	shell.__newindex = function(t, k, v)
 		if shell.__whitelist[k] then
 			shell[k] = v
+		elseif k == "innerColor" then
+			typecheck(v)
+			shell.center.color = v
+		elseif k == "innerColor32" then
+			typecheck(v)
+			shell.center.color32 = v
+		elseif k == "outerColor" then
+			typecheck(v)
+			shell.walls.color = v
+		elseif k == "outerColor32" then
+			typecheck(v)
+			shell.walls.color32 = v
 		else
 			if shell[k] then
 				error("the arena value " .. k .. " is read-only", 2)
