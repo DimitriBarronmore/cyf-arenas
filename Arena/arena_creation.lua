@@ -158,7 +158,7 @@ local inactive_arena = {
 	end
 }
 
-CreateLayer("fake_arenas", "BelowPlayer", true)
+CreateLayer("fake_arenas", "BelowArena", false)
 
 function library.create_arena(self, x, y, w, h, r)
 	r = r or 0
