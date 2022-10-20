@@ -66,9 +66,10 @@ end
 
 bullist = {}
 
-function library.remove_all_arenas()
+function library.cleanup()
 	for k in pairs(arena_list) do
 		k.Remove()
+		Arena.Show()
 	end
 end
 
