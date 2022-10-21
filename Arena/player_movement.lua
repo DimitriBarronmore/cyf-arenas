@@ -30,7 +30,7 @@ rawset(Player, "Move", function(x, y, ignorewalls)
 	ignorewalls = ignorewalls or false
 	real_player.Move(x, y, true)
 	if ignorewalls == false then
-		res, pos = arenas.collide_all_arenas(Player.absx, Player.absy)
+		res, pos = arenas.is_colliding(Player.absx, Player.absy)
 		if res then real_player.MoveToAbs(pos.x, pos.y, true) end
 	end
 end)
@@ -39,7 +39,7 @@ rawset(Player, "MoveToAbs", function(x, y, ignorewalls)
 	ignorewalls = ignorewalls or false
 	real_player.MoveToAbs(x,y, true)
 	if ignorewalls == false then
-		res, pos = arenas.collide_all_arenas(Player.absx, Player.absy)
+		res, pos = arenas.is_colliding(Player.absx, Player.absy)
 		if res then real_player.MoveToAbs(pos.x, pos.y, true) end
 	end
 end)
@@ -61,7 +61,7 @@ rawset(Player, "MoveTo", function(ix, iy, ignorewalls, arena)
 	real_player.MoveToAbs(apx, apy, true)
 
 	if ignorewalls == false then
-		res, pos = arenas.collide_all_arenas(Player.absx, Player.absy)
+		res, pos = arenas.is_colliding(Player.absx, Player.absy)
 		if res then real_player.MoveToAbs(pos.x, pos.y, true) end
 	end
 end
@@ -95,7 +95,7 @@ local function handle_movement(speed, ignorewalls)
 	real_player.Move(movementX, movementY, true)
 
 	if ignorewalls == false then
-		res, pos = arenas.collide_all_arenas(Player.absx, Player.absy)
+		res, pos = arenas.is_colliding(Player.absx, Player.absy)
 		if res then real_player.MoveToAbs(pos.x, pos.y, true) end
 	end
 

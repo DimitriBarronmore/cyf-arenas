@@ -73,7 +73,7 @@ function library.cleanup()
 	end
 end
 
-function library.collide_all_arenas()
+function library.is_colliding()
 	local collisions = {}
 	local found_arenas = {}
 	local exitearly = false
