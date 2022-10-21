@@ -184,7 +184,7 @@ function library.create_arena(self, x, y, w, h, r)
 			end
 		end
 	local function typecheck(val)
-		if rawtype(val) ~= "table" then
+		if type(val) ~= "table" then
 			error("Arena color must be set to a table.", 3)
 		end
 	end
