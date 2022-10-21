@@ -44,4 +44,10 @@ end
 
 arenas.bind_arena(Arena)
 
-return arenas, movement
+arenas.handle_movement = movement
+arenas.update = function()
+	arenas.handle_movement()
+	arenas.update_all_arenas()
+end
+return arenas
+-- return arenas, movement
