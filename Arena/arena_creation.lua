@@ -281,7 +281,24 @@ function library.create_arena(self, x, y, w, h, r)
 	local moveplayer = true
 	shell.movementspeed = 1000
 
+	local function assert_num(...)
+		for _,v in ipairs({...}) do
+			if type(v) ~= "number" then
+				error("invalid argument of type " .. type(v), 3)
+			end
+		end
+	end
+	local function assert_bool(...)
+		for _,v in ipairs({...}) do
+			if type(v) ~= "boolean" then
+				error("invalid argument of type " .. type(v), 3)
+			end
+		end
+	end
+
 	function shell.Move(x, y, mp, imm)
+		assert_num(x,y)
+		assert_bool(mp, imm)
 		if mp == false then moveplayer = false else moveplayer = true end
 		forceupdate = imm or forceupdate
 		shell.x = shell.x + x
@@ -296,6 +313,8 @@ function library.create_arena(self, x, y, w, h, r)
 	end
 
 	function shell.MoveTo(x, y, mp, imm)
+		assert_num(x,y)
+		assert_bool(mp, imm)
 		if mp == false then moveplayer = false else moveplayer = true end
 		forceupdate = imm or forceupdate
 		shell.x = x
@@ -310,6 +329,8 @@ function library.create_arena(self, x, y, w, h, r)
 	end
 
 	function shell.Resize(width, height, imm)
+		assert_num(width, height)
+		assert_bool(imm)
 		forceupdate = imm or forceupdate
 		width = (width >= 16) and width or 16
 		height = (height >= 16) and height or 16
@@ -322,6 +343,8 @@ function library.create_arena(self, x, y, w, h, r)
 	end
 
 	function shell.Rotate(rotation, imm)
+		assert_num(rotation)
+		assert_bool(imm)
 		forceupdate = imm or forceupdate
 		shell.rotation = shell.rotation + rotation
 		if imm then
@@ -330,6 +353,8 @@ function library.create_arena(self, x, y, w, h, r)
 	end
 
 	function shell.RotateTo(rotation, imm)
+		assert_num(rotation)
+		assert_bool(imm)
 		forceupdate = imm or forceupdate
 		shell.rotation = rotation
 		if imm then
@@ -337,7 +362,28 @@ function library.create_arena(self, x, y, w, h, r)
 		end
 	end
 
+	-- Adding these back in for compatibility.
+	function shell.MoveAndResize(x, y, w, h, mp, imm)
+		assert_num(x,y,w,h)
+		assert_bool(mp, imm)
+		shell.Move(x, y, mp, imm)
+		shell.Resize(x, y, imm)
+	end
+
+	function shell.MoveToAndResize(x, y, w, h, mp, imm)
+		assert_num(x,y,w,h)
+		assert_bool(mp, imm)
+		shell.MoveTo(x, y, mp, imm)
+		shell.Resize(x, y, imm)
+	end
+
+	function shell.ResizeImmediate(w, h)
+		assert_num(w,h)
+		shell.Resize(w, h, true)
+	end
+
 	function shell.GetRelative(ix, iy)
+		assert_num(ix,iy)
 	--local px, py = Player.absx, Player.absy
 	local width, height = shell.currentwidth, shell.currentheight
 	local ax, ay = shell.currentx, shell.currenty + 5 + height/2
