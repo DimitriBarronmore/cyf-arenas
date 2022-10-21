@@ -10,9 +10,11 @@ local arenas = require(current_folder .. "arena_creation")
 Player.SetControlOverride(true)
 real_player = Player
 
---Player = WrapUserdata(Player)
-
-Player = setmetatable({}, {__index = Player, __newindex = Player})
+if WrapUserdata then
+	Player = WrapUserdata(Player)
+else
+	Player = setmetatable({}, {__index = Player, __newindex = Player})
+end
 
 rawset(Player, "ismoving", false)
 
