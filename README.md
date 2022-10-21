@@ -38,11 +38,14 @@ arena = arenas(x, y, width, height, rotation)
 
 Multiple arenas which overlap will automatically merge into a single shape. There is no option to disable this.
 
-Arenas should behave exactly like the original, just with some extra features.
+Arenas should behave almost exactly like the original, just with some extra features.
 
 -----------------------
 
 ## **Features:**
+
+**`Arena.Resize(width, height, immediate = false)`**
+Exactly the same as the original, but now with an extra argument to determine whether to resize immediately. If `immediate` is true, this is exactly the same as `Arena.ResizeImmediate`
 
 **`arenas.bind_arena(arena)`**
 Causes the real arena to copy the location/scale of the given arena, for purposes of bound monster sprites and the resize back to the UI box at the end of a wave. When the library is initialized this is set to `Arena`.
