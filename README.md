@@ -2,29 +2,28 @@
 
 # Multiple Arenas
 
-Initially created for CORE but also released here as a standalone resource, this library enables the creation of multiple arenas with rotatable and merged collision.
+This library adds arena rotation to CYF and allows the creation of multiple arenas with merged collision. 
 
 **Setup Instructions:**
 
 **0).** Copy the Arena folder to your Lua/Libraries folder, or wherever else you want it. It should work the same regardless of location if you prefer to structure things a little differently.
 
-**1).** At the top of your wave file, run:
+**1).** At the top of each wave file you intend to use the library in, run:
 
 ```lua
-arenas, handle_movement = require("Libraries/Arena/init")()
+arenas = require "Libraries/Arena/init"
 ```
 
-**2).** Include the following lines at the top of the Update function:
+**2).** Include the following line at the top of the wave's Update function:
 
 ```lua
-handle_movement()
-arenas.update_all_arenas()
+arenas.update()
 ```
 
-**3).** Place the following line in the EndingWave function:
+**3).** Place the following line in the wave's EndingWave function:
 
 ```lua
-arenas.remove_all_arenas()
+arenas.cleanup()
 ```
 
 
@@ -46,15 +45,12 @@ This is because you can simply use Arena.Move/Arena.MoveTo and Arena.Resize one 
 
 **2.)** Arena.ResizeImmediate no longer exists. Instead, Arena.Resize takes an optional third true / false argument which tells it whether to resize immediately.
 
-**3.)** Arena.currenty and Arena.y both return a coordinate on the outside of the white portion of the arena. This may cause off-by-five positioning errors in existing code which uses Arena.currenty.
-
-
 -----------------------
 
 ## **Features:**
 
 **`arenas.bind_arena(arena)`**
-Causes the real arena to copy the location/scale of the given arena, for purposes of bound monster sprites and the resize back to the UI box at the end of a wave. Set to the value of 'Arena' when the library is initialized.
+Causes the real arena to copy the location/scale of the given arena, for purposes of bound monster sprites and the resize back to the UI box at the end of a wave. When the library is initialized this is set to `Arena`.
 If 'false' is instead given as an argument, the real arena will no longer move unless directed. If needed it can be accessed via `arenas.real_arena`
 
 **`Arena.Rotate/Arena.RotateTo(angle, immediate = false)`**
