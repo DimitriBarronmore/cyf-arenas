@@ -38,12 +38,7 @@ arena = arenas(x, y, width, height, rotation)
 
 Multiple arenas which overlap will automatically merge into a single shape. There is no option to disable this.
 
-Arenas behave mostly like the original, with a few notable exceptions:
-
-**1.)** Arena.MoveAndResize and Arena.MoveToAndResize no longer exist. 
-This is because you can simply use Arena.Move/Arena.MoveTo and Arena.Resize one after another, and with the addition of rotation following this convention seems impractical.
-
-**2.)** Arena.ResizeImmediate no longer exists. Instead, Arena.Resize takes an optional third true / false argument which tells it whether to resize immediately.
+Arenas should behave exactly like the original, just with some extra features.
 
 -----------------------
 
