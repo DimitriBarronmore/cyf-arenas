@@ -62,7 +62,7 @@ If 'false' is instead given as an argument, the real arena will no longer move u
 **Sprite Components**
 The sprite components of an arena can be accessed through `Arena.walls`, `Arena.center`, and `Arena.base` (an invisible sprite used internally). This allows you to do things such as parent sprites to the arena, add shaders and masks, or change the arena's color. Caution and creativity are equally advised.
 
-( **WARNING:** Note that all arena sprites are stored on the layer `fake_arenas` between `BelowArena` and `BelowPlayer`. All `Arena.walls` sprites are placed below everything else, and all `Arena.center` sprites are parented to `Arena.base`. )
+( **WARNING:** Note that all arena sprites are stored on the layer `fake_arenas` above `BelowArena`. All `Arena.walls` sprites are placed below everything else, and all `Arena.center` sprites are parented to `Arena.base`. )
 
 **`Arena.movementspeed = 1000`**
 This value controls the speed at which an arena moves/resizes/rotates. This may lead to unreliable behavior at high speeds.
@@ -79,10 +79,10 @@ The Player object should work as normal, including `SetFrameBasedMovement`, `Pla
 Because there will be multiple arenas active at once, `Player.MoveTo` now takes a fourth argument: 
 
 ```lua
-Player.MoveTo(x, y, ignorewalls, arena)
+Player.MoveTo(x, y, ignorewalls, arena = Arena)
 ```
 
-Passing in an arena object will cause the player to move to the provided coordinates, relative to the arena, rotation included. This defaults to the current value of `Arena`.
+Passing in an arena object will cause the player to move to the provided coordinates, relative to the arena, rotation included.
 
 **`handle_movement(speed = 2, ignorewalls = false)`**
 This function updates the red soul movement, and as such should only be run once every frame.
@@ -92,16 +92,16 @@ Sticking to the default values is recommended.
 
 ## Advanced Notice: Extending this Library
 
-Because the default player movement can be disabled using `Player.SetControlOverride(false)` as normal, it's vey possible to create your own movement code and impment alternate soul modes using this library. In fact, movement code which doesn't ignore the arena walls may perform without changes. However, any code which references the Arena's x, y, height, or width will behave erratically with multiple arenas.
+Because the default player movement can be disabled using `Player.SetControlOverride(false)` as normal, it's vey possible to create your own movement code and impment alternate soul modes using this library. In fact, movement code which doesn't ignore the arena walls may perform without changes. However, any code which references the Arena's x, y, height, or width will behave erratically with rotation and multiple arenas.
 
-The following function can be used to automatically handle collision with multiple arenas:
+The following function can be used to handle collision with the library's custom arenas:
 
 ```lua
-status, result = arenas.collide_all_arenas()
+status, result = arenas.is_colliding()
 ```
 
 If the player is inside of any arena, `status` is returned as false and `result` as an array of all arenas the player is currently inside.
 
-If the player is outside of all active arenas and/or colliding with the arena walls, `result` is returned as `true` and `point` as a table `{x = num, y = num}` containing the absolute coordinates of where the player should be placed back within bounds.
+If the player is outside of all active arenas and/or colliding with arena walls, `result` is returned as `true` and `point` as a table `{x = num, y = num}` containing the absolute coordinates of the closest point to the player within bounds. This is where the player should be moved back to.
 
 Finally, while arena objects are created to be mostly read-only for safety and parity reasons, it is still possible to get to the juicy read/write center using `getmetatable(Arena)`. Prior knowledge of the internal arena code is recommended if you intend to alter existing behavior.
