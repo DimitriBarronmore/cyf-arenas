@@ -10,10 +10,7 @@ Arena.Hide()
 local arenas = require(current_folder.."arena_creation")
 local movement = require(current_folder.."player_movement")
 
-local real_arena = Arena
-arenas.real_arena = Arena
-
-Arena = arenas(real_arena.x, real_arena.y, real_arena.width, real_arena.height)
+Arena = arenas(arenas.real_arena.x, arenas.real_arena.y, arenas.real_arena.width, arenas.real_arena.height)
 Arena.innerColor = real_arena.innerColor
 Arena.outerColor = real_arena.outerColor
 
@@ -49,5 +46,26 @@ arenas.update = function()
 	arenas.handle_movement()
 	arenas.update_all_arenas()
 end
+
+local function access_error(str)
+	return function()
+		error("cannot use function '" .. str .. "' after fake arena cleanup", 2)
+	end
+end
+
+arenas.cleanup = function()
+	for k in pairs(arenas.arena_list) do
+		k.Remove()
+	end
+	Player._unwrap_player()
+	arenas.handle_movement = access_error("arenas.handle_movement")
+	arenas.bind_arena = access_error("arenas.bind_arena")
+	arenas.update = access_error("arenas.update")
+	Arena = arenas.real_arena
+	if not (previous_bind and previous_bind.center.alpha == 0) then
+		Arena.Show()
+	end
+end
+
 return arenas
 -- return arenas, movement

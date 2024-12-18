@@ -67,6 +67,12 @@ rawset(Player, "MoveTo", function(ix, iy, ignorewalls, arena)
 end
 )
 
+
+rawset(Player, "_unwrap_player", function() 
+	real_player.SetControlOverride(override)
+	Player = real_player
+end)
+
 local last_px = 0
 local last_py = 0
 local function handle_movement(speed, ignorewalls)

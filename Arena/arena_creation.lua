@@ -22,6 +22,9 @@ end
 local library = {}
 local arena_list = {}
 
+library.real_arena = Arena
+library.arena_list = arena_list
+
 function library.update_all_arenas()
 	for k in pairs(arena_list) do
 		k._update()
@@ -65,13 +68,6 @@ local function check_collision(arena, px, py)
 end
 
 bullist = {}
-
-function library.cleanup()
-	for k in pairs(arena_list) do
-		k.Remove()
-		Arena.Show()
-	end
-end
 
 function library.is_colliding()
 	local collisions = {}

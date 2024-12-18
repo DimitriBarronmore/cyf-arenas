@@ -11,7 +11,7 @@ This library adds arena rotation to CYF and allows the creation of multiple aren
 **1).** At the top of each wave file you intend to use the library in, run:
 
 ```lua
-arenas = require "Libraries/Arena/init"
+arenas = require "Libraries.Arena.init"
 ```
 
 **2).** Include the following line at the top of the wave's Update function:
